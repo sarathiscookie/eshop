@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Role;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -49,8 +51,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
+            'lastname' => 'required|max:255',
+            'role' => 'required|not_in:0',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'address' => 'required',
         ]);
     }
 
@@ -62,10 +67,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
+            'lastname' => $data['lastname'],
             'email' => $data['email'],
+            'address' => $data['address'],
+            'alias' => str_slug($data['name'].' '.$data['lastname'].' '.Carbon::now()),
             'password' => bcrypt($data['password']),
         ]);
+
+        Role::create([
+            'user_id' => $user->id,
+            'role' => $data['role'],
+        ]);
+
+        return $user;
     }
 }

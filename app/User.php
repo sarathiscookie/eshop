@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'lastname', 'role', 'email', 'password', 'address', 'alias',
     ];
 
     /**
@@ -26,4 +26,28 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * User name first letter be capital
+     */
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucfirst($value);
+    }
+
+    /**
+     * User lastname first letter be capital
+     */
+    public function setLastNameAttribute($value)
+    {
+        $this->attributes['lastname'] = ucfirst($value);
+    }
+
+    /**
+     * set alias letter be small
+     */
+    public function setAliasAttribute($value)
+    {
+        $this->attributes['alias'] = strtolower($value);
+    }
 }
