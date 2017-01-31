@@ -17,6 +17,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth', 'role']], function () {
+Route::group(['middleware' => ['adminrole']], function () {
     Route::get('/home', 'HomeController@index');
 });
+
+Route::group(['middleware' => ['buyerrole']], function () {
+    Route::get('/buyer/home', 'BuyerController@index');
+});
+
+Route::group(['middleware' => ['sellerrole']], function () {
+    Route::get('/seller/home', 'SellerController@index');
+});
+
