@@ -51,4 +51,11 @@ class User extends Authenticatable
         $this->attributes['alias'] = strtolower($value);
     }
 
+    /**
+     * Relation set to roles table
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
 }

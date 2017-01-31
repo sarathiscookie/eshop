@@ -1,10 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
-use App\Userrole;
+use App\Roleuser;
 
-class UserRolesTableSeeder extends Seeder
+class RoleuserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,18 +16,15 @@ class UserRolesTableSeeder extends Seeder
             [
                 'user_id' => 1,
                 'role_id' => 1,
-                'created_at' => Carbon::now(),
             ],[
                 'user_id' => 2,
                 'role_id' => 2,
-                'created_at' => Carbon::now(),
             ],[
                 'user_id' => 3,
                 'role_id' => 3,
-                'created_at' => Carbon::now(),
             ]
         ];
 
-        Userrole::insert($data);
+        Roleuser::insert($data);
     }
 }

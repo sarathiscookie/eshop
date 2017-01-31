@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
-use App\Userrole;
+use App\Roleuser;
 
 class BuyerCheckRole
 {
@@ -27,7 +27,7 @@ class BuyerCheckRole
 
         if(Auth::check())
         {
-            $userRole = Userrole::select('user_roles.role_id', 'roles.role')
+            $userRole = Roleuser::select('user_roles.role_id', 'roles.role')
                 ->join('users', 'user_roles.user_id', '=', 'users.id')
                 ->join('roles', 'user_roles.role_id', '=', 'roles.id')
                 ->where('user_roles.user_id', Auth::user()->id)
