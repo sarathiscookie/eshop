@@ -20,3 +20,6 @@ elixir(function(mix) {
 elixir(function(mix) {
     mix.sass('dashboard.css');
 });
+elixir(function(mix) {
+    mix.webpack('core.js');
+});

@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => ['adminrole']], function () {
-    Route::get('/home', 'HomeController@index');
+    Route::get('/admin/home', 'AdminController@index');
 });
 
 Route::group(['middleware' => ['buyerrole']], function () {

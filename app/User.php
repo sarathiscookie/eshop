@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Doctrine\Instantiator\Exception\UnexpectedValueException;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -58,4 +59,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Role');
     }
+    
+
+    /**
+     * Checking user has role
+     */
+    public function hasRole($role)
+    {
+        return $this->roles->pluck("role")->contains($role);
+    }
+
 }

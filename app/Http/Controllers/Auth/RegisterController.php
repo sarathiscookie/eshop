@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Role;
+use App\Roleuser;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -76,9 +77,13 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-        Role::create([
+        $roleId = Role::select('id')
+            ->where('role', $data['role'])
+            ->first();
+
+        Roleuser::create([
             'user_id' => $user->id,
-            'role' => $data['role'],
+            'role_id' => $roleId->id,
         ]);
 
         return $user;

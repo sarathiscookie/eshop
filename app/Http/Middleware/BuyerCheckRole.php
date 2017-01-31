@@ -27,15 +27,13 @@ class BuyerCheckRole
 
         if(Auth::check())
         {
-            $userRole = Roleuser::select('user_roles.role_id', 'roles.role')
-                ->join('users', 'user_roles.user_id', '=', 'users.id')
-                ->join('roles', 'user_roles.role_id', '=', 'roles.id')
-                ->where('user_roles.user_id', Auth::user()->id)
-                ->first();
-            if($userRole->role == 'buyer')
+            if(request()->user()->hasRole("buyer"))
             {
-                //return $next($request);
-                return redirect('/buyer/home');
+                return $next($request);
+            }
+            else{
+                $request->session()->flush();
+                return redirect('/');
             }
         }
         return redirect()->guest('login');

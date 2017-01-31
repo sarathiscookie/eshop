@@ -27,18 +27,16 @@ class SellerCheckRole
 
         if(Auth::check())
         {
-            $userRole = Roleuser::select('user_roles.role_id', 'roles.role')
-                ->join('users', 'user_roles.user_id', '=', 'users.id')
-                ->join('roles', 'user_roles.role_id', '=', 'roles.id')
-                ->where('user_roles.user_id', Auth::user()->id)
-                ->first();
-            if($userRole->role == 'seller')
+            if(request()->user()->hasRole("seller"))
             {
                 return $next($request);
             }
+            else{
+                $request->session()->flush();
+                return redirect('/');
+            }
         }
-        else{
-            return redirect()->guest('login');
-        }
+
+        return redirect()->guest('login');
     }
 }
