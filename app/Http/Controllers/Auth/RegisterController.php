@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -77,9 +77,18 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-        $roleId = Role::select('id')
+        $roleId = Role::select('id', 'role')
             ->where('role', $data['role'])
             ->first();
+
+        if($roleId->role == 'seller')
+        {
+            $this->redirectTo = '/seller/home';
+        }
+        elseif($roleId->role == 'buyer')
+        {
+            $this->redirectTo = '/buyer/home';
+        }
 
         Roleuser::create([
             'user_id' => $user->id,
@@ -88,4 +97,5 @@ class RegisterController extends Controller
 
         return $user;
     }
+
 }
