@@ -1,6 +1,6 @@
 .form-group.required .control-label:after {
   content: "*";
-  color: blue;
+  color: red;
 }
 
 /*# sourceMappingURL=core.css.map */

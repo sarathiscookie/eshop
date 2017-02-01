@@ -28,7 +28,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
+                        <div class="form-group required{{ $errors->has('lastname') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Lastname</label>
 
                             <div class="col-md-6">
@@ -42,7 +42,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
+                        <div class="form-group required{{ $errors->has('role') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Role</label>
 
                             <div class="col-md-6">
@@ -60,7 +60,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="form-group required{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
@@ -74,7 +74,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="form-group required{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
@@ -88,7 +88,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
 
                             <div class="col-md-6">
@@ -96,7 +96,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                        <div class="form-group required{{ $errors->has('address') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Address</label>
 
                             <div class="col-md-6">
