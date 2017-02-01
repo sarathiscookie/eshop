@@ -60,9 +60,6 @@
                             </div>
                         </div>
                     </form>
-                    <div class="col-md-12 text-right links">
-                        <a href="{{ url('/register') }}">Create Account</a>
-                    </div>
                 </div>
             </div>
         </div>
