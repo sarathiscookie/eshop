@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -25,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/home';
+    protected $redirectTo = '';
 
     /**
      * Create a new controller instance.
@@ -36,4 +37,29 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if($user->hasRole('admin')) {
+            return redirect()->intended('/admin/home');
+        }
+        else if ($user->hasRole('buyer')) {
+            return redirect()->intended('/buyer/home');
+        }
+        else if ($user->hasRole('seller')) {
+            return redirect()->intended('/seller/home');
+        }
+    }
+
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        return $this->authenticated($request, $this->guard()->user())
+            ?: redirect()->intended($this->redirectPath());
+    }
+
+
 }

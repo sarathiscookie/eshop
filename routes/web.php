@@ -17,15 +17,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middleware' => ['adminrole']], function () {
+Route::group(['middleware' => ['auth','role'], 'role' => 'admin'],  function () {
     Route::get('/admin/home', 'AdminController@index');
 });
 
-Route::group(['middleware' => ['buyerrole']], function () {
+Route::group(['middleware' => ['auth','role'], 'role' => 'buyer'],  function () {
     Route::get('/buyer/home', 'BuyerController@index');
 });
-
-Route::group(['middleware' => ['sellerrole']], function () {
+Route::group(['middleware' => ['auth','role'], 'role' => 'seller'],  function () {
     Route::get('/seller/home', 'SellerController@index');
 });
+
 
