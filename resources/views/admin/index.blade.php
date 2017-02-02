@@ -1,78 +1,49 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
-@section('title', 'Article Details')
+@section('title', 'Admin: Dashboard')
 
 @section('styles')
     <link rel="stylesheet" href="/css/dashboard.css">
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Reports</a></li>
-                    <li><a href="#">Analytics</a></li>
-                    <li><a href="#">Export</a></li>
-                </ul>
-                <ul class="nav nav-sidebar">
-                    <li><a href="">Nav item</a></li>
-                    <li><a href="">Nav item again</a></li>
-                    <li><a href="">One more nav</a></li>
-                    <li><a href="">Another nav item</a></li>
-                    <li><a href="">More navigation</a></li>
-                </ul>
-                <ul class="nav nav-sidebar">
-                    <li><a href="">Nav item again</a></li>
-                    <li><a href="">One more nav</a></li>
-                    <li><a href="">Another nav item</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">Dashboard</h1>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <ol class="breadcrumb">
+            <li class="active">Dashboard</li>
+        </ol>
 
-                <h2 class="sub-header">Section title</h2>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Header</th>
-                            <th>Header</th>
-                            <th>Header</th>
-                            <th>Header</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1,001</td>
-                            <td>Lorem</td>
-                            <td>ipsum</td>
-                            <td>dolor</td>
-                            <td>sit</td>
-                        </tr>
-                        <tr>
-                            <td>1,002</td>
-                            <td>amet</td>
-                            <td>consectetur</td>
-                            <td>adipiscing</td>
-                            <td>elit</td>
-                        </tr>
-                        <tr>
-                            <td>1,003</td>
-                            <td>Integer</td>
-                            <td>nec</td>
-                            <td>odio</td>
-                            <td>Praesent</td>
-                        </tr>
-                        </tbody>
-                    </table>
+        <div class="row">
+            @if(isset($newUsers))
+                <div class="col-md-6">
+                    <h2>New 5 Users</h2>
+                    <ul class="list-group">
+                        @foreach($newUsers as $newUser)
+                            <li class="list-group-item">
+                                <span class="badge">View</span>
+                                {{ $newUser->name }} {{ $newUser->lastname }}
+                                <small>({{ date('d.m.y', strtotime($newUser->created_at)) }})</small>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
-            </div>
+            @endif
+
+            @if(isset($newProducts))
+                <div class="col-md-6">
+                    <h2>New 5 Products</h2>
+                    <ul class="list-group">
+                        @foreach($newProducts as $newProduct)
+                            <li class="list-group-item">
+                                <span class="badge">View</span>
+                                {{ $newProduct->name }} @if($newProduct->stock == 'no') <span class="label label-danger">Out of stock</span> @endif
+                                <small>({{ date('d.m.y', strtotime($newProduct->created_at)) }})</small>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
     </div>
-
 @endsection
 
 @section('scripts')

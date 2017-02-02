@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -13,7 +15,20 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        $newUsers = User::select('users.id', 'users.name', 'users.lastname', 'users.created_at')
+            ->join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            ->orderBy('id', 'desc')
+            ->where('roles.role', '<>', 'admin')
+            ->take(5)
+            ->get();
+
+        $newProducts = Product::select('id', 'name', 'amount', 'stock', 'created_at')
+            ->orderBy('id', 'desc')
+            ->take(5)
+            ->get(0);
+
+        return view('admin.index', ['newUsers' => $newUsers, 'newProducts' => $newProducts]);
     }
 
     /**
