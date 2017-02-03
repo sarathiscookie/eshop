@@ -2,10 +2,6 @@
 
 @section('title', 'Admin: Users List')
 
-@section('styles')
-    <link rel="stylesheet" href="/css/dashboard.css">
-@endsection
-
 @section('content')
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <ol class="breadcrumb">
@@ -16,8 +12,11 @@
         <div class="row">
             <div class="panel panel-primary">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Users</div>
+                <div class="panel-heading">
+                    Users
+                </div>
                 <div class="panel-body">
+                    <a href="{{ url('/admin/users/create') }}" class="btn btn-primary pull-right">Add User</a>
                     <!-- Table -->
                     <table class="table table-bordered table-hover">
                         <tr>
@@ -33,13 +32,15 @@
                         @forelse ($users as $user)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->name }} @if($user->roleID == 2) <span class="label label-default">{{ $user->role }}</span> @else <span class="label label-info">{{ $user->role }}</span> @endif</td>
                                 <td>{{ $user->lastname }}</td>
                                 <td>{{ $user->pincode }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ date('d.m.y H.i', strtotime($user->created_at)) }}</td>
-                                <td><button type="button" class="btn btn-danger btn-xs">Delete</button></td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-xs deleteUser" data-id="{{ $user->id }}">Delete</button>
+                                </td>
                             </tr>
                         @empty
                             <p>No users</p>
@@ -53,6 +54,7 @@
 @endsection
 
 @section('scripts')
+    <script src="/js/core.js"></script>
 @endsection
 
 

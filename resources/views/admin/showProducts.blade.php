@@ -2,10 +2,6 @@
 
 @section('title', 'Admin: Products List')
 
-@section('styles')
-    <link rel="stylesheet" href="/css/dashboard.css">
-@endsection
-
 @section('content')
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <ol class="breadcrumb">

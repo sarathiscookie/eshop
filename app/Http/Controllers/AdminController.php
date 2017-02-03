@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Product;
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
+use App\Roleuser;
+use App\Http\Requests\AdminUserRequest;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -16,7 +20,7 @@ class AdminController extends Controller
     public function index()
     {
         //new 5 user
-        $newUsers = User::select('users.id', 'users.name', 'users.lastname', 'users.created_at')
+        $newUsers = User::select('users.id', 'users.name', 'users.lastname', 'users.created_at', 'roles.role')
             ->join('role_user', 'users.id', '=', 'role_user.user_id')
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
             ->orderBy('id', 'desc')
@@ -56,9 +60,9 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createUsers()
     {
-        //
+        return view('admin.createUser');
     }
 
     /**
@@ -67,9 +71,30 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeUser(AdminUserRequest $request)
     {
-        //
+        $user = new User();
+        $user->name     = $request->name;
+        $user->lastname = $request->lastname;
+        $user->address  = $request->address;
+        $user->pincode  = $request->pincode;
+        $user->phone    = $request->phone;
+        $user->email    = $request->email;
+        $user->alias    = str_slug($request->name.' '.$request->lastname.' '.Carbon::now());
+        $user->password = bcrypt($request->password);
+        $user->phone    = $request->phone;
+        $user->save();
+
+        $roleId = Role::select('id', 'role')
+            ->where('role', $request->role)
+            ->first();
+
+        Roleuser::create([
+            'user_id' => $user->id,
+            'role_id' => $roleId->id,
+        ]);
+        $request->session()->flash('status', trans('messages.adminUserCreatedMessage'));
+        return redirect()->back();
     }
 
     /**
@@ -78,7 +103,13 @@ class AdminController extends Controller
      */
     public function showUsers()
     {
-        $users = User::select('*')->paginate(10);
+        $users = User::select('users.*', 'roles.role', 'roles.id AS roleID')
+            ->join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            ->orderBy('id', 'desc')
+            ->where('roles.role', '<>', 'admin')
+            ->paginate(10);
+
         return view('admin.showUsers')->with('users', $users);
     }
 
@@ -120,8 +151,8 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyUser(Request $request, $id)
     {
-        //
+        dd($request->all());
     }
 }

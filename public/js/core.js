@@ -68,7 +68,7 @@
 /* 0 */
 /***/ function(module, exports) {
 
-eval("/**\r\n * Created by php on 02-Feb-17.\r\n */\r\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMC5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9yZXNvdXJjZXMvYXNzZXRzL2pzL2NvcmUuanM/N2UyZCJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcclxuICogQ3JlYXRlZCBieSBwaHAgb24gMDItRmViLTE3LlxyXG4gKi9cclxuXG5cblxuLy8gV0VCUEFDSyBGT09URVIgLy9cbi8vIHJlc291cmNlcy9hc3NldHMvanMvY29yZS5qcyJdLCJtYXBwaW5ncyI6IkFBQUE7OzsiLCJzb3VyY2VSb290IjoiIn0=");
+eval("$(function () {\r\n    $.ajaxSetup({\r\n        headers: {\r\n            'X-CSRF-TOKEN': $('meta[name=\"csrf-token\"]').attr('content')\r\n        }\r\n    });\r\n    $(\".deleteUser\").on('click', function(){\r\n        $.post('/admin/users/destroy', {userID: $(this).data(\"id\")}, function(data){\r\n        });\r\n    });\r\n\r\n});\r\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMC5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9yZXNvdXJjZXMvYXNzZXRzL2pzL2NvcmUuanM/N2UyZCJdLCJzb3VyY2VzQ29udGVudCI6WyIkKGZ1bmN0aW9uICgpIHtcclxuICAgICQuYWpheFNldHVwKHtcclxuICAgICAgICBoZWFkZXJzOiB7XHJcbiAgICAgICAgICAgICdYLUNTUkYtVE9LRU4nOiAkKCdtZXRhW25hbWU9XCJjc3JmLXRva2VuXCJdJykuYXR0cignY29udGVudCcpXHJcbiAgICAgICAgfVxyXG4gICAgfSk7XHJcbiAgICAkKFwiLmRlbGV0ZVVzZXJcIikub24oJ2NsaWNrJywgZnVuY3Rpb24oKXtcclxuICAgICAgICAkLnBvc3QoJy9hZG1pbi91c2Vycy9kZXN0cm95Jywge3VzZXJJRDogJCh0aGlzKS5kYXRhKFwiaWRcIil9LCBmdW5jdGlvbihkYXRhKXtcclxuICAgICAgICB9KTtcclxuICAgIH0pO1xyXG5cclxufSk7XHJcblxuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyByZXNvdXJjZXMvYXNzZXRzL2pzL2NvcmUuanMiXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTsiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ }
 /******/ ]);
