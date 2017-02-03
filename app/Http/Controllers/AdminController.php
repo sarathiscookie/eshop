@@ -15,6 +15,7 @@ class AdminController extends Controller
      */
     public function index()
     {
+        //new 5 user
         $newUsers = User::select('users.id', 'users.name', 'users.lastname', 'users.created_at')
             ->join('role_user', 'users.id', '=', 'role_user.user_id')
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
@@ -23,12 +24,31 @@ class AdminController extends Controller
             ->take(5)
             ->get();
 
+        //new 5 products
         $newProducts = Product::select('id', 'name', 'amount', 'stock', 'created_at')
             ->orderBy('id', 'desc')
             ->take(5)
             ->get(0);
 
         return view('admin.index', ['newUsers' => $newUsers, 'newProducts' => $newProducts]);
+    }
+
+    /**
+     * Count of users
+     */
+    public function userCount()
+    {
+        $usersCount    = User::count();
+        return $usersCount;
+    }
+
+    /**
+     * Count of products
+     */
+    public function productCount()
+    {
+        $productsCount    = Product::count();
+        return $productsCount;
     }
 
     /**
@@ -53,16 +73,24 @@ class AdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
+     * List all users
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showUsers()
     {
-        //
+        $users = User::select('*')->paginate(10);
+        return view('admin.showUsers')->with('users', $users);
     }
 
+    /**
+     * List all products
+     * @return \Illuminate\Http\Response
+     */
+    public function showProducts()
+    {
+        $products = Product::select('*')->paginate(10);
+        return view('admin.showProducts')->with('products', $products);
+    }
     /**
      * Show the form for editing the specified resource.
      *

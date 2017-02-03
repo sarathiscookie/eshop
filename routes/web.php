@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth','role'], 'role' => 'admin'],  function () {
     Route::get('/admin/home', 'AdminController@index');
+    Route::get('/admin/users', 'AdminController@showUsers');
+    Route::get('/admin/products', 'AdminController@showProducts');
 });
 
 Route::group(['middleware' => ['auth','role'], 'role' => 'buyer'],  function () {

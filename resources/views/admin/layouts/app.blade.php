@@ -78,13 +78,14 @@
             </div>
         </nav>
 
+        @inject('getCounts', 'App\Http\Controllers\AdminController')
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
                         <li class="active"><a href="#">User & Products Details <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Users <span class="badge">42</span></a></li>
-                        <li><a href="#">Products <span class="badge">42</span></a></li>
+                        <li><a href="{{ url('/admin/users') }}">Users <span class="badge">{{ $getCounts->userCount() }}</span></a></li>
+                        <li><a href="{{ url('/admin/products') }}">Products <span class="badge">{{ $getCounts->productCount() }}</span></a></li>
                     </ul>
                 </div>
                 @yield('content')
