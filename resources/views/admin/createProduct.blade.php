@@ -22,9 +22,12 @@
             </div>
             <div class="panel-body">
                 @if (session()->has('status'))
-                <div class="alert alert-success">{{ session()->get('status') }}</div>
+                    <div class="alert alert-success">{{ session()->get('status') }}</div>
                 @endif
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('storeProducts') }}">
+                @if (session()->has('filestatus'))
+                     <div class="alert alert-danger">{{ session()->get('filestatus') }}</div>
+                 @endif
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('storeProducts') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="form-group required{{ $errors->has('productname') ? ' has-error' : '' }}">
@@ -84,6 +87,15 @@
                                         <strong>{{ $errors->first('amount') }}</strong>
                                     </span>
                             @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="upload" class="col-md-4 control-label">Upload</label>
+
+                        <div class="col-md-6">
+                            <input type="file" id="file" name="file">
+                            <p class="help-block">Upload image is not mandatory. Supported extensions are jpeg, jpg, png, gif</p>
                         </div>
                     </div>
 

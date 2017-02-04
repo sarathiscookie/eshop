@@ -10,6 +10,7 @@ use App\Roleuser;
 use App\Http\Requests\AdminUserRequest;
 use App\Http\Requests\AdminProductRequest;
 use Carbon\Carbon;
+use Storage, File;
 
 class AdminController extends Controller
 {
@@ -153,6 +154,25 @@ class AdminController extends Controller
         $product->amount      = $request->amount;
         $product->save();
 
+        if($product->id > 0)
+        {
+            if (!empty($_FILES)) {
+                $foldername  = 'products';
+                $file        = $request->file('file');
+                $extension   = $file->getClientOriginalExtension();
+                $filename    = $product->id;
+                if($extension =='gif' || $extension =='png' || $extension =='jpeg' || $extension =='jpg'){
+                    if($filename > 0){
+                        Storage::disk('local')->makeDirectory($foldername, 0777);
+                        Storage::disk('local')->put($foldername.'/'.$filename.'.'.$extension,  File::get($file));
+                    }
+                }
+                else{
+                    $request->session()->flash('filestatus', trans('messages.adminProductImageFormatMessage'));
+                }
+            }
+        }
+
         $request->session()->flash('status', trans('messages.adminProductCreatedMessage'));
         return redirect()->back();
     }
@@ -190,6 +210,21 @@ class AdminController extends Controller
     public function destroyProduct($id)
     {
         Product::find($id)->delete();
+
+        /* Checking product related images. If images exist it will delete*/
+        $directory = 'products';
+        $fileLists = Storage::disk('local')->files($directory);
+        foreach ($fileLists as $fileList){
+            $fileExplodeSlash = explode('/', $fileList); // ProductsImages/35.jpg
+            $fileExploded     = end($fileExplodeSlash); //35.jpg
+            $fileNameExplode  = explode('.', $fileExploded);
+            $extension        = end($fileNameExplode); //jpg
+            $image            = 'products/'.$id.'.'.$extension;
+            if (Storage::exists($image)) {
+                Storage::delete($image);
+            }
+        }
+        
         return redirect()->route('listUsers')->with('deleteSuccess', trans('messages.adminProductDeleteMessage'));
     }
 }

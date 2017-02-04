@@ -12,6 +12,7 @@ return [
     'adminUserDeleteMessage'                  => 'Deleted user successfully',
     'adminProductDeleteMessage'               => 'Deleted product successfully',
     'adminProductCreatedMessage'              => 'Product created successfully',
+    'adminProductImageFormatMessage'          => 'Sorry only .jpg format allowed',
 
 
 ];
