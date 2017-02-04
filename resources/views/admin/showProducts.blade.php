@@ -45,7 +45,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <p>No users</p>
+                            <p>No Products</p>
                         @endforelse
                     </table>
                 </div>
