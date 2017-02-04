@@ -14,6 +14,10 @@
                 <!-- Default panel contents -->
                 <div class="panel-heading">Products</div>
                 <div class="panel-body">
+                    @if (session()->has('deleteSuccess'))
+                        <div class="alert alert-success">{{ session()->get('deleteSuccess') }}</div>
+                    @endif
+                    <a href="{{ url('/admin/products/create') }}" class="btn btn-primary pull-right">Add Product</a>
                     <!-- Table -->
                     <table class="table table-bordered table-hover">
                         <tr>
@@ -33,7 +37,12 @@
                                 <td>@if ($product->stock == 'no') <span class="label label-danger">Out of stock</span> @else <span class="label label-default">In stock</span> @endif</td>
                                 <td>{{ $product->amount }}</td>
                                 <td>{{ date('d.m.y H.i', strtotime($product->created_at)) }}</td>
-                                <td><button type="button" class="btn btn-danger btn-xs">Delete</button></td>
+                                <td>{!! Form::open(['method' => 'DELETE' ,'route' => ['destroyProducts', $product->id], 'style' => 'display:inline']) !!}
+
+                                    {!! Form::submit ('Delete', ['class' => 'btn btn-danger']) !!}
+
+                                    {!! Form::close() !!}
+                                </td>
                             </tr>
                         @empty
                             <p>No users</p>

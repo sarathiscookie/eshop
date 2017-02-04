@@ -8,6 +8,7 @@ use App\User;
 use App\Role;
 use App\Roleuser;
 use App\Http\Requests\AdminUserRequest;
+use App\Http\Requests\AdminProductRequest;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -32,13 +33,13 @@ class AdminController extends Controller
         $newProducts = Product::select('id', 'name', 'amount', 'stock', 'created_at')
             ->orderBy('id', 'desc')
             ->take(5)
-            ->get(0);
+            ->get();
 
         return view('admin.index', ['newUsers' => $newUsers, 'newProducts' => $newProducts]);
     }
 
     /**
-     * Count of users
+     * Count of users for left sidebar
      */
     public function userCount()
     {
@@ -50,7 +51,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Count of products
+     * Count of products for left sidebar
      */
     public function productCount()
     {
@@ -122,20 +123,39 @@ class AdminController extends Controller
      */
     public function showProducts()
     {
-        $products = Product::select('*')->paginate(10);
+        $products = Product::select('*')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
         return view('admin.showProducts')->with('products', $products);
     }
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for creating a new resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function createProducts()
     {
-        //
+        return view('admin.createProduct');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeProduct(AdminProductRequest $request)
+    {
+        $product              = new Product();
+        $product->name        = $request->productname;
+        $product->description = $request->description;
+        $product->stock       = $request->stock;
+        $product->amount      = $request->amount;
+        $product->save();
+
+        $request->session()->flash('status', trans('messages.adminProductCreatedMessage'));
+        return redirect()->back();
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -159,5 +179,17 @@ class AdminController extends Controller
         Roleuser::where('user_id', $id)->delete();
         User::find($id)->delete();
         return redirect()->route('listUsers')->with('deleteSuccess', trans('messages.adminUserDeleteMessage'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyProduct($id)
+    {
+        Product::find($id)->delete();
+        return redirect()->route('listUsers')->with('deleteSuccess', trans('messages.adminProductDeleteMessage'));
     }
 }
