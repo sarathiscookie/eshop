@@ -21,7 +21,7 @@ class AdminController extends Controller
     public function index()
     {
         //new 5 user
-        $newUsers = User::select('users.id', 'users.name', 'users.lastname', 'users.created_at', 'roles.role')
+        $newUsers = User::select('users.*', 'roles.role', 'roles.id AS roleID')
             ->join('role_user', 'users.id', '=', 'role_user.user_id')
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
             ->orderBy('id', 'desc')

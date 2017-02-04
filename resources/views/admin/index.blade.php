@@ -15,9 +15,9 @@
                     <ul class="list-group">
                         @foreach($newUsers as $newUser)
                             <li class="list-group-item">
-                                <span class="badge">View</span>
                                 {{ $newUser->name }} {{ $newUser->lastname }}
                                 <small>({{ date('d.m.y', strtotime($newUser->created_at)) }})</small>
+                                @if($newUser->roleID == 2) <span class="label label-default">{{ $newUser->role }}</span> @else <span class="label label-info">{{ $newUser->role }}</span> @endif
                             </li>
                         @endforeach
                     </ul>
@@ -30,9 +30,9 @@
                     <ul class="list-group">
                         @foreach($newProducts as $newProduct)
                             <li class="list-group-item">
-                                <span class="badge">View</span>
-                                {{ $newProduct->name }} @if($newProduct->stock == 'no') <span class="label label-danger">Out of stock</span> @endif
+                                {{ $newProduct->name }}
                                 <small>({{ date('d.m.y', strtotime($newProduct->created_at)) }})</small>
+                                @if($newProduct->stock == 'no') <span class="label label-danger">Out of stock</span> @endif
                             </li>
                         @endforeach
                     </ul>

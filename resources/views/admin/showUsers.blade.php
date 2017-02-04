@@ -26,6 +26,7 @@
                             <th>id</th>
                             <th>Name</th>
                             <th>Latname</th>
+                            <th>Address</th>
                             <th>Pincode</th>
                             <th>Phone</th>
                             <th>Email</th>
@@ -37,6 +38,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }} @if($user->roleID == 2) <span class="label label-default">{{ $user->role }}</span> @else <span class="label label-info">{{ $user->role }}</span> @endif</td>
                                 <td>{{ $user->lastname }}</td>
+                                <td>{{ $user->address }}</td>
                                 <td>{{ $user->pincode }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->email }}</td>
