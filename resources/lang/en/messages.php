@@ -9,6 +9,7 @@ return [
     |
     */
     'adminUserCreatedMessage'                  => 'User created successfully',
-    
+    'adminUserDeleteMessage'                  => 'Deleted user successfully',
+
 
 ];

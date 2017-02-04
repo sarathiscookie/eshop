@@ -19,10 +19,10 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth','role'], 'role' => 'admin'],  function () {
     Route::get('/admin/home', 'AdminController@index');
-    Route::get('/admin/users', 'AdminController@showUsers');
+    Route::get('/admin/users', ['as' => 'listUsers', 'uses' => 'AdminController@showUsers']);
     Route::get('/admin/users/create', 'AdminController@createUsers');
     Route::post('/admin/users/store', ['as' => 'storeUsers', 'uses' => 'AdminController@storeUser']);
-    Route::post('/admin/users/destroy', ['as' => 'destroyUsers', 'uses' => 'AdminController@destroyUser']);
+    Route::delete('/admin/users/destroy/{id}', ['as' => 'destroyUsers', 'uses' => 'AdminController@destroyUser']);
     Route::get('/admin/products', 'AdminController@showProducts');
 
 });

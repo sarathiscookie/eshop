@@ -16,6 +16,9 @@
                     Users
                 </div>
                 <div class="panel-body">
+                    @if (session()->has('deleteSuccess'))
+                        <div class="alert alert-success">{{ session()->get('deleteSuccess') }}</div>
+                    @endif
                     <a href="{{ url('/admin/users/create') }}" class="btn btn-primary pull-right">Add User</a>
                     <!-- Table -->
                     <table class="table table-bordered table-hover">
@@ -39,7 +42,12 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ date('d.m.y H.i', strtotime($user->created_at)) }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-xs deleteUser" data-id="{{ $user->id }}">Delete</button>
+                                    {!! Form::open(['method' => 'DELETE' ,'route' => ['destroyUsers', $user->id], 'style' => 'display:inline']) !!}
+
+                                    {!! Form::submit ('Delete', ['class' => 'btn btn-danger']) !!}
+
+                                    {!! Form::close() !!}
+
                                 </td>
                             </tr>
                         @empty

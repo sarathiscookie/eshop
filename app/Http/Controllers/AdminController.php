@@ -42,7 +42,10 @@ class AdminController extends Controller
      */
     public function userCount()
     {
-        $usersCount    = User::count();
+        $usersCount    = User::join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            ->where('roles.role', '<>', 'admin')
+            ->count();
         return $usersCount;
     }
 
@@ -151,8 +154,10 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroyUser(Request $request, $id)
+    public function destroyUser($id)
     {
-        dd($request->all());
+        Roleuser::where('user_id', $id)->delete();
+        User::find($id)->delete();
+        return redirect()->route('listUsers')->with('deleteSuccess', trans('messages.adminUserDeleteMessage'));
     }
 }
