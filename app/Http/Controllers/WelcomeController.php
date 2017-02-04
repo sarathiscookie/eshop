@@ -26,7 +26,6 @@ class WelcomeController extends Controller
 
     public function show($id)
     {
-        /* Checking product related images. If images exist it will delete*/
         $directory = 'products';
         $fileLists = Storage::disk('local')->files($directory);
         foreach ($fileLists as $fileList){

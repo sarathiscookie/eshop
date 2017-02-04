@@ -73,7 +73,7 @@
                                     <div class="col-md-7">
                                         {{ $product->created_at }}
                                     </div>
-                                    <div class="col-md-5 text-right">age <span class="number">{{ $product->id }}</span>, {{ $product->name }}</div>
+                                    <div class="col-md-5 text-right"><span class="number">{{ $product->id }}</span>, {{ $product->name }}</div>
                                 </div>
                                 @if($showAvatar->show($product->id)!='') <img src="{{ url('/product/avatar/'.$product->id) }}" class="img-circle" alt="{{ $product->name }}" width="200"> @endif
 
@@ -294,30 +294,6 @@
                 $('#msg-box').fadeIn('slow');
             }
         };
-
-       /* var socket = io('{{ env("APP_URL") }}:3000');
-        socket.on('user-channel:App\\Events\\UserSignedUp', function(data){
-
-            if(data.gender == "m"){
-                var gender = 'male';
-            }
-            else if(data.gender == "f"){
-                var gender = 'female';
-            }
-            else{
-                var gender = 'other';
-            }
-
-            if(data.avatar_userid != ''){
-                var avatar = '<img src="{{ url("/user/avatar/") }}/'+data.user_id+'" class="img-circle" alt="'+ data.nickname +'" width="200">'
-            }
-            // create new item elements
-            var $items = $('<div class="col-sm-6 col-md-4 grid-item '+ data.gender +' '+ data.messengers +' region-'+ data.country_id +'"><div class="panel panel-default"> <div class="panel-body thumbnail thumbnail-custom"> <div class="row"> <div class="col-md-7"></div> <div class="col-md-5 text-right">age <span class="number">'+data.age+'</span>,  '+ gender +'  </div> </div> '+avatar+' <div class="caption"> <h3 class="text-center"><strong>'+ data.nickname +'</strong></h3> <p class="text-center">'+ data.description +'</p> <p class="text-center">'+data.userflag+'</p> </div> </div> <div class="panel-footer" style="background-color:#31b0d5; min-height: 246px"> '+data.showMessengers+' </div> </div> </div> </div>');
-            // append items to grid
-            $grid.append( $items )
-                    // add and lay out newly appended items
-                    .isotope( 'appended', $items );
-        });*/
 
     </script>
 

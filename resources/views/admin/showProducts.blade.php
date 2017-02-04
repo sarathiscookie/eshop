@@ -22,7 +22,7 @@
                     <table class="table table-bordered table-hover">
                         <tr>
                             <th>id</th>
-                            <th>Name</th>
+                            <th>Product Name</th>
                             <th>Description</th>
                             <th>Stock</th>
                             <th>Price</th>

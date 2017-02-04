@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="form-group required{{ $errors->has('role') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Role</label>
+                            <label for="role" class="col-md-4 control-label">Role</label>
 
                             <div class="col-md-6">
                                 <select id="role" class="form-control" name="role">
@@ -110,7 +110,7 @@
                         </div>
 
                         <div class="form-group required{{ $errors->has('address') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Address</label>
+                            <label for="address" class="col-md-4 control-label">Address</label>
 
                             <div class="col-md-6">
                                 <textarea id="address" type="text" class="form-control" name="address" rows="3">{{ old('address') }}</textarea>
