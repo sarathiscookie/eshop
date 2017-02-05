@@ -94,6 +94,7 @@ Route::group(['middleware' => ['auth','role'], 'role' => 'seller'],  function ()
     */
     Route::get('/seller/profile', 'SellerController@edit');
     Route::post('/seller/profile/edit', ['as' => 'updateSellerProfile', 'uses' => 'SellerController@update']);
+    Route::get('/seller/product', ['as' => 'sellerProduct', 'uses' => 'SellerController@create']);
 });
 
 

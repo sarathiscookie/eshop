@@ -15,7 +15,9 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::select('*')
+            ->orderBy('id', 'desc')
+            ->get();
         return view('welcome', ['products' => $products]);
     }
 

@@ -117,8 +117,6 @@
     <script src="/js/isotope.pkgd.min.js"></script>
     <script src="/js/packery-mode.pkgd.min.js"></script>
     <script src="/js/nouislider/nouislider.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/0.12.16/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
     <script>
         $('#msg-box').hide();
         var $grid = $('.grid').isotope({

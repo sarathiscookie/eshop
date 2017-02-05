@@ -76,6 +76,10 @@
                                         <li><a href="{{ url('/seller/profile') }}">Profile</a></li>
                                     @endif
 
+                                        @if (Auth::user()->hasRole('seller'))
+                                            <li><a href="{{ url('/seller/product/') }}">Products</a></li>
+                                        @endif
+
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
