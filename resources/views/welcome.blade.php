@@ -81,7 +81,7 @@
                                     <p class="text-center">{{ $product->description }}</p>
                                     <h3 class="text-center">
                                         <span class="label label-default">
-                                            <span class="number">Rs: {{ $product->amount }}</span>
+                                            <span class="number">{{ $product->amount }}</span>
                                         </span>
                                     </h3>
                                 </div>

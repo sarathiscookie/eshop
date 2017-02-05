@@ -63,8 +63,4 @@
     </div>
 @endsection
 
-@section('scripts')
-    <script src="/js/core.js"></script>
-@endsection
-
 

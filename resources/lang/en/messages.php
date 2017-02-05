@@ -12,7 +12,8 @@ return [
     'adminUserDeleteMessage'                  => 'Deleted user successfully',
     'adminProductDeleteMessage'               => 'Deleted product successfully',
     'adminProductCreatedMessage'              => 'Product created successfully',
-    'adminProductImageFormatMessage'          => 'Sorry only .jpg format allowed',
+    'adminProductImageFormatMessage'          => 'Sorry this format is not supportd',
+    'buyerProfileUpdatedStatus'               => 'Well Done! Profile updated successfully',
 
 
 ];

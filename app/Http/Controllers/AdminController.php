@@ -87,7 +87,6 @@ class AdminController extends Controller
         $user->email    = $request->email;
         $user->alias    = str_slug($request->name.' '.$request->lastname.' '.Carbon::now());
         $user->password = bcrypt($request->password);
-        $user->phone    = $request->phone;
         $user->save();
 
         $roleId = Role::select('id', 'role')

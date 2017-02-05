@@ -1,1 +1,1 @@
-{"version":3,"sources":["core.css"],"names":[],"mappings":"AAAA;EACI,aAAY;EACZ,WAAU;CACb","file":"core.css","sourcesContent":[".form-group.required .control-label:after {\r\n    content:\"*\";\r\n    color:red;\r\n}"]}
+{"version":3,"sources":["core.css"],"names":[],"mappings":"AAAA;EACI,aAAY;EACZ,WAAU;CACb","file":"core.css","sourcesContent":[".form-group.required .control-label:after {\r\n    content:\"*\";\r\n    color:red;\r\n}\r\n"]}
