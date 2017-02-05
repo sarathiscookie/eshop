@@ -17,7 +17,7 @@
     </style>
 @endsection
 
-@inject('showAvatar', 'App\Http\Controllers\WelcomeController')
+@inject('showAvatar', 'App\Http\Controllers\BuyerController')
 
 @section('content')
     <div class="container">

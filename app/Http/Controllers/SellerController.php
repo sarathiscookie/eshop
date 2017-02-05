@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
+use App\User;
+use Storage, Auth;
+use App\Http\Requests\UserRequest;
+use Carbon\Carbon;
 
 class SellerController extends Controller
 {
@@ -13,7 +18,8 @@ class SellerController extends Controller
      */
     public function index()
     {
-        return view('seller.index');
+        $products = Product::all();
+        return view('seller.index', ['products' => $products]);
     }
 
     /**
@@ -45,7 +51,26 @@ class SellerController extends Controller
      */
     public function show($id)
     {
-        //
+        $directory = 'products';
+        $fileLists = Storage::disk('local')->files($directory);
+        foreach ($fileLists as $fileList){
+            $fileExplodeSlash = explode('/', $fileList); // ProductsImages/35.jpg
+            $fileExploded     = end($fileExplodeSlash); //35.jpg
+            $fileNameExplode  = explode('.', $fileExploded);
+            $extension        = end($fileNameExplode); //jpg
+            $image            = '/'.$directory.'/'.$id.'.'.$extension;
+            switch( $extension ) {
+                case "gif": $ctype="image/gif"; break;
+                case "png": $ctype="image/png"; break;
+                case "jpeg":
+                case "jpg": $ctype="image/jpeg"; break;
+                default:
+            }
+            if (Storage::exists($image)) {
+                $file = storage_path('app').$image;
+                return response()->file($file, ['Content-Type' => $ctype]);
+            }
+        }
     }
 
     /**
@@ -54,9 +79,11 @@ class SellerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $user = User::find(Auth::user()->id);
+
+        return view('seller.editSellerProfile', ['user' => $user]);
     }
 
     /**
@@ -66,9 +93,17 @@ class SellerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request)
     {
-        //
+        $user           = User::find(Auth::user()->id);
+        $user->name     = $request->name;
+        $user->lastname = $request->lastname;
+        $user->address  = $request->address;
+        $user->pincode  = $request->pincode;
+        $user->phone    = $request->phone;
+        $user->alias    = str_slug($request->name.' '.$request->lastname.' '.Carbon::now());
+        $user->save();
+        return response()->json(['profileSellerUpdated' => trans('messages.sellerProfileUpdatedStatus'), 'user' => $user]);
     }
 
     /**

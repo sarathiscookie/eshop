@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
@@ -57,16 +57,25 @@
                                 <li><a href="{{ url('/buyer/home') }}">Home</a></li>
                             @elseif(Auth::user()->hasRole('seller'))
                                 <li><a href="{{ url('/seller/home') }}">Home</a></li>
+                            @else
+                                <a href="{{ url('/admin/home') }}">Home</a>
                             @endif
 
-                            <li><a href="">Credit balance: 100</a></li>
+                            @if (Auth::user()->hasRole('buyer'))
+                                    <li><a href="">Credit balance: 100</a></li>
+                            @endif
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ url('/buyer/profile') }}">Profile</a></li>
+                                    @if (Auth::user()->hasRole('buyer'))
+                                        <li><a href="{{ url('/buyer/profile') }}">Profile</a></li>
+                                    @elseif(Auth::user()->hasRole('seller'))
+                                        <li><a href="{{ url('/seller/profile') }}">Profile</a></li>
+                                    @endif
+
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();

@@ -61,7 +61,7 @@
 
                             <div class="form-group.required">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <button type="button" id="updateBuyerProfile" class="btn btn-primary">
+                                    <button type="button" id="updateSellerProfile" class="btn btn-primary">
                                         Update Profile
                                     </button>
                                 </div>

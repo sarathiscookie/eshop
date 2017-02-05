@@ -76,7 +76,24 @@ Route::group(['middleware' => ['auth','role'], 'role' => 'buyer'],  function () 
 
 });
 Route::group(['middleware' => ['auth','role'], 'role' => 'seller'],  function () {
+    /*
+    |--------------------------------------------------------------------------
+    | Buyer: Home page
+    |--------------------------------------------------------------------------
+    |
+    | Listing products and filtering functionality
+    */
     Route::get('/seller/home', 'SellerController@index');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Seller: profile page
+    |--------------------------------------------------------------------------
+    |
+    | Functionality for view and update profile
+    */
+    Route::get('/seller/profile', 'SellerController@edit');
+    Route::post('/seller/profile/edit', ['as' => 'updateSellerProfile', 'uses' => 'SellerController@update']);
 });
 
 

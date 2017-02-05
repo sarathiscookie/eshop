@@ -83,7 +83,7 @@ class BuyerController extends Controller
     {
         $user = User::find(Auth::user()->id);
 
-        return view('buyer.editBuyerprofile', ['user' => $user]);
+        return view('buyer.editBuyerProfile', ['user' => $user]);
     }
 
     /**
