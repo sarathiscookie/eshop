@@ -24,7 +24,7 @@
         <div class="well">
             <div class="row" id="options">
                 <h4>Title:</h4>
-                <div class="col-md-2 option-set" data-group="gender">
+                {{--<div class="col-md-2 option-set" data-group="gender">
                     <h5>Gender</h5>
                     <label>
                         <input type="checkbox" value=".m"> male
@@ -35,26 +35,25 @@
                     <label>
                         <input type="checkbox" value=".n"> other
                     </label>
-                </div>
+                </div>--}}
                 <div class="col-md-2 option-set" data-group="messenger">
-                    {{--<h5>Group Messenger</h5>
-                    @foreach($userObj->messengers as $filterKey =>$filterItem)
+                    <h5>Product</h5>
+                    @foreach($products as $productDetail)
                         <label>
-                            <input type="checkbox" value=".{{$filterKey}}"> {{  $filterItem }}
+                            <input type="checkbox" value="{{$productDetail->id}}"> {{  $productDetail->name }}
                         </label><br>
-                    @endforeach--}}
+                    @endforeach
                 </div>
-                <div class="col-md-4" data-group="age">
-                    <h5>Age Group</h5>
-                    <div id="age_slider"></div>
+                <div class="col-md-4" data-group="price">
+                    <h5>Price Range</h5>
+                    <div id="price_slider"></div>
                 </div>
                 <div class="col-md-4 option-set" data-group="country">
-                    <h5>Country</h5>
+                    <h5>Product Status</h5>
                     <select id="country" class="form-control">
-                        <option value="" title="Choose Country">--Choose Country--</option>
-                        {{--@foreach($countryList as $country)
-                            <option value="{{ $country['id'] }}">{{ $country['country_name'] }}</option>
-                        @endforeach--}}
+                        <option value="" title="Choose Country">--Choose Stock--</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
                     </select>
                 </div>
             </div>
@@ -66,32 +65,43 @@
         <div class="grid" id="app">
             @if(isset($products))
                 @foreach($products as $product)
-                    <div class="col-sm-6 col-md-4 grid-item {{ $product->name }}">
+                    <div class="col-sm-6 col-md-4 grid-item {{ $product->id }} {{ $product->name }} {{ 'region-'.$product->stock }} {{ $product->amount }}">
                         <div class="panel panel-default">
                             <div class="panel-body thumbnail thumbnail-custom">
                                 <div class="row">
                                     <div class="col-md-7">
-                                        {{ $product->created_at }}
+                                        {{ date('d.m.Y', strtotime($product->created_at)) }}
                                     </div>
-                                    <div class="col-md-5 text-right"><span class="number">{{ $product->id }}</span>, {{ $product->name }}</div>
+                                    <div class="col-md-5 text-right">{{ date('H:i', strtotime($product->created_at)) }}</div>
                                 </div>
                                 @if($showAvatar->show($product->id)!='') <img src="{{ url('/product/avatar/'.$product->id) }}" class="img-circle" alt="{{ $product->name }}" width="200"> @endif
 
                                 <div class="caption">
                                     <h3 class="text-center"><strong>{{ $product->name }}</strong></h3>
                                     <p class="text-center">{{ $product->description }}</p>
-                                    <p class="text-center">{{ $product->stock }}</p>
+                                    <h3 class="text-center">
+                                        <span class="label label-default">
+                                            <span class="number">Rs: {{ $product->amount }}</span>
+                                        </span>
+                                    </h3>
                                 </div>
                             </div>
                             <div class="panel-footer" style="background-color:#31b0d5; min-height: 100px">
                                 <div class="row" style="padding: 10px;">
-                                    <div class="col-md-8">
-                                        {{ $product->amount }}
-                                    </div>
-                                    <div class="col-md-4 text-right">
-                                        <a href="#" role="button" class="btn btn-primary" target="_blank">
-                                            Checkout
-                                        </a>
+                                    <div class="col-md-12">
+                                        @if($product->stock == 'no')
+                                            <h3 class="text-center">
+                                                <span class="label label-danger">
+                                                    Out of stock
+                                                </span>
+                                            </h3>
+                                        @else
+                                            <h3 class="text-center">
+                                                <span class="label label-primary">
+                                                    Checkout
+                                                </span>
+                                            </h3>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -226,16 +236,16 @@
 
         }
 
-        //Age selection slider - noUiSlider
-        var ageSlider = document.getElementById('age_slider');
-        noUiSlider.create(ageSlider, {
-            start: [ 16, 70 ],
+        //Price selection slider - noUiSlider
+        var priceSlider = document.getElementById('price_slider');
+        noUiSlider.create(priceSlider, {
+            start: [ 10000, 70000 ],
             connect: true,
             tooltips: true,
             step: 1,
             range: {
-                'min':   16 ,
-                'max':  70
+                'min':   10000 ,
+                'max':  70000
             },
             format: {
                 to: function ( value ) {
@@ -247,9 +257,9 @@
             }
         });
 
-        // Age Filtering
-        ageSlider.noUiSlider.on('slide', function(){
-            var rangeVal = ageSlider.noUiSlider.get();
+        // Price Filtering
+        priceSlider.noUiSlider.on('slide', function(){
+            var rangeVal = priceSlider.noUiSlider.get();
             min = rangeVal[0];
             max = rangeVal[1];
 
@@ -260,13 +270,13 @@
         //Handling multiple filter controls and  groups
         function multipleFilter() {
             var that = this;
-            function checkAge() {
+            function checkPrice() {
                 var $number = $( that ).find('.number');
                 var number = parseInt( $number.text(), 10 );
                 return number >= min && number <= max;
             }
 
-            return checkAge() && $(this).is(comboFilter || '*');
+            return checkPrice() && $(this).is(comboFilter || '*');
         }
 
         //Reset Filter
@@ -275,9 +285,9 @@
                 $(this).prop('checked', false)
             });
 
-            min = 16;
-            max = 70;
-            ageSlider.noUiSlider.set([16, 70]);
+            min = 10000;
+            max = 70000;
+            priceSlider.noUiSlider.set([10000, 70000]);
             $('#country').val('').trigger('change');
 
             filters     = {};
