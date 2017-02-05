@@ -13,7 +13,7 @@ class BuyerController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * Passing product details
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -47,7 +47,7 @@ class BuyerController extends Controller
 
     /**
      * Display the specified resource.
-     *
+     * Functionality to show image
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

@@ -75,7 +75,7 @@ class SellerController extends Controller
 
     /**
      * Display the specified resource.
-     *
+     * Functionality to show image.
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

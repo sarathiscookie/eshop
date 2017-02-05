@@ -16,12 +16,11 @@ class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * Passing new 5 users and latest 5 products
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //new 5 user
         $newUsers = User::select('users.*', 'roles.role', 'roles.id AS roleID')
             ->join('role_user', 'users.id', '=', 'role_user.user_id')
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
@@ -30,7 +29,6 @@ class AdminController extends Controller
             ->take(5)
             ->get();
 
-        //new 5 products
         $newProducts = Product::select('id', 'name', 'amount', 'stock', 'created_at')
             ->orderBy('id', 'desc')
             ->take(5)
@@ -71,7 +69,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Storing user details
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -139,7 +137,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Storing all products.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -210,7 +208,7 @@ class AdminController extends Controller
     {
         Product::find($id)->delete();
 
-        /* Checking product related images. If images exist it will delete*/
+        /* Checking product related images. If image exist it will delete*/
         $directory = 'products';
         $fileLists = Storage::disk('local')->files($directory);
         foreach ($fileLists as $fileList){

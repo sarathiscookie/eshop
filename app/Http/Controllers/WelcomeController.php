@@ -10,7 +10,7 @@ class WelcomeController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * Listing all products.
      * @return \Illuminate\Http\Response
      */
     public function index()

@@ -11,8 +11,10 @@
 |
 */
 
+/* Default welcome page */
 Route::get('/', ['as' => 'listDataDefaultUsers', 'uses' => 'WelcomeController@index']);
 
+/* Show image */
 Route::get('/product/avatar/{id}', ['as' => 'productAvatar', 'uses' => 'WelcomeController@show']);
 
 /*Live Search*/
