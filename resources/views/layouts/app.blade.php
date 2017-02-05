@@ -54,11 +54,9 @@
                             <form class="navbar-form navbar-right" action="" method="POST">
                                 {{ csrf_field() }}
                                 <div class="input-group">
-                                    <input type="text" id="search-input" name="company" placeholder="Search Product..." class="form-control" onkeydown="down()" onkeyup="up()" autocomplete="off">
-
-                                    {{--<input type="text" class="form-control" placeholder="Search...">--}}
+                                    <input type="text" id="search-input" placeholder="Search..." class="form-control" onkeydown="down()" onkeyup="up()" autocomplete="off">
                                 </div>
-                                <div class="searchPanelBody table-bordered" style="display: none; background: #FFF; padding: 20px; position: absolute; width: 90%; z-index: 999;">
+                                <div class="searchPanelBody table-bordered" style="display: none; background: #FFF; padding: 10px; position: absolute; width: 90%; z-index: 999;">
                                     <div id="search-result"></div>
                                 </div>
                             </form>

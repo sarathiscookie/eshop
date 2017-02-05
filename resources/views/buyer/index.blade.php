@@ -21,31 +21,32 @@
 
 @section('content')
     <div class="container">
-        <div class="well">
+        <div class="well" style="min-height: 130px;">
             <div class="row" id="options">
-                <h4>Title:</h4>
-                <div class="col-md-2 option-set" data-group="messenger">
+                {{--<div class="col-md-6 option-set" data-group="messenger">
                     <h5>Product</h5>
                     @foreach($products as $productDetail)
                         <label>
-                            <input type="checkbox" value="{{$productDetail->id}}"> {{  $productDetail->name }}
+                            <input type="checkbox" value="{{$productDetail->name}}"> {{  $productDetail->name }}
                         </label><br>
                     @endforeach
-                </div>
-                <div class="col-md-4" data-group="price">
-                    <h5>Price Range</h5>
-                    <div id="price_slider"></div>
-                </div>
-                <div class="col-md-4 option-set" data-group="country">
-                    <h5>Product Status</h5>
+                </div>--}}
+                <div class="col-md-3 option-set" data-group="country">
+                    {{--<h5>Product Status</h5>
                     <select id="country" class="form-control">
                         <option value="" title="Choose Country">--Choose Stock--</option>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
-                    </select>
+                    </select>--}}
+                </div>
+                <div class="col-md-6" data-group="price">
+                    <h5>Price Range</h5>
+                    <div id="price_slider"></div>
+                </div>
+                <div class="col-md-3" style="top: 30px;">
+                    <button class="btn btn-success pull-right" type="button" id="resetFilterBtn">Reset</button>
                 </div>
             </div>
-            <div class="text-right"><button class="btn btn-success" type="button" id="resetFilterBtn">Reset</button></div>
         </div>
 
         <div id="msg-box" class="text-danger text-center">No results for current filter</div>

@@ -64,14 +64,14 @@ class WelcomeController extends Controller
         if(count($products))
         {
             foreach ($products as $product){
-                echo '<div><h3>' .$product->name. '</h3>';
+                echo '<div><h4>' .$product->name. '</h4>';
                 if($product->stock == 'no'){
                     echo '<span class="label label-danger">Out of stock</span></div>';
                 }
             }
         }
         else{
-            echo '<h3>No product</h3>';
+            echo '<h4>Oops</h4>';
         }
 
 
