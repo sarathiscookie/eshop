@@ -24,18 +24,6 @@
         <div class="well">
             <div class="row" id="options">
                 <h4>Title:</h4>
-                {{--<div class="col-md-2 option-set" data-group="gender">
-                    <h5>Gender</h5>
-                    <label>
-                        <input type="checkbox" value=".m"> male
-                    </label><br>
-                    <label>
-                        <input type="checkbox" value=".f"> female
-                    </label><br>
-                    <label>
-                        <input type="checkbox" value=".n"> other
-                    </label>
-                </div>--}}
                 <div class="col-md-2 option-set" data-group="messenger">
                     <h5>Product</h5>
                     @foreach($products as $productDetail)

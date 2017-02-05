@@ -49,4 +49,31 @@ class WelcomeController extends Controller
             }
         }
     }
+
+    /**
+     *
+     * Functionality for live search
+     */
+    public function livesearch(Request $request)
+    {
+        $products = Product::select('*')
+            ->where('name', 'like', urldecode($request->keywords) . '%')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        if(count($products))
+        {
+            foreach ($products as $product){
+                echo '<div><h3>' .$product->name. '</h3>';
+                if($product->stock == 'no'){
+                    echo '<span class="label label-danger">Out of stock</span></div>';
+                }
+            }
+        }
+        else{
+            echo '<h3>No product</h3>';
+        }
+
+
+    }
 }

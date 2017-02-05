@@ -12,7 +12,14 @@
 */
 
 Route::get('/', ['as' => 'listDataDefaultUsers', 'uses' => 'WelcomeController@index']);
+
 Route::get('/product/avatar/{id}', ['as' => 'productAvatar', 'uses' => 'WelcomeController@show']);
+
+/*Live Search*/
+Route::post('/livesearch',  [
+    'as' => 'livesearchdata', 'uses' => 'WelcomeController@livesearch'
+]);
+
 
 Auth::routes();
 

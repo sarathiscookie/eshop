@@ -46,8 +46,23 @@
                         &nbsp;
                     </ul>
 
+
+
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <form class="navbar-form navbar-right" action="" method="POST">
+                                {{ csrf_field() }}
+                                <div class="input-group">
+                                    <input type="text" id="search-input" name="company" placeholder="Search Product..." class="form-control" onkeydown="down()" onkeyup="up()" autocomplete="off">
+
+                                    {{--<input type="text" class="form-control" placeholder="Search...">--}}
+                                </div>
+                                <div class="searchPanelBody table-bordered" style="display: none; background: #FFF; padding: 20px; position: absolute; width: 90%; z-index: 999;">
+                                    <div id="search-result"></div>
+                                </div>
+                            </form>
+                        </li>
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">Login</a></li>
@@ -104,6 +119,39 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var timer;
+        function up(){
+            timer = setTimeout(function(){
+                var keywords = $("#search-input").val();
+
+                if(keywords.length >0){
+                    $.post("/livesearch", {keywords: keywords}, function(markup){
+                        $(".searchPanelBody").show();
+                        $('#search-input').removeClass('loading-icn');
+                        $("#search-result").fadeIn("fast");
+                        $("#search-result").html(markup);
+                    });
+                }
+                if(keywords.length == 0){
+                    $(".searchPanelBody").hide();
+                    $('#search-input').removeClass('loading-icn');
+                    $("#search-result").fadeOut("fast");
+                }
+            }, 500);
+        }
+
+        function down(){
+            $('#search-input').addClass('loading-icn');
+            clearTimeout(timer);
+        }
+    </script>
     @yield('scripts')
 </body>
 </html>
